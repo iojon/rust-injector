@@ -13,10 +13,8 @@ LoadItem get_load_item()
     {
         auto memory = Memory::get();
         auto exe = memory.exe();
-        auto needle = "\xBA\xB9\x01\x00\x00"s;
+        auto needle = "\xBA\x51\x00\x00\x00"s;
         auto off = find_inst(exe, needle, memory.after_bundle);
-        off = find_inst(exe, needle, off + 5);
-        off = find_inst(exe, needle, off + 5);
         off = find_inst(exe, "\xE8"s, off + 5);
 
         return res = (LoadItem)memory.at_exe(Memory::decode_call(off));
